@@ -24,15 +24,21 @@ internal class GameOfLifeTest {
 
     @Test
     fun testCellChangeState_LiveDead() {
-        var cellState = LIVE
-        cellState = DEAD
+        val cellState = die()
         assertEquals(cellState, DEAD)
     }
 
     @Test
     fun testCellChangeState_DeadLive() {
-        var cellState = DEAD
-        cellState = LIVE
+        val cellState = comeAlive()
         assertEquals(cellState, LIVE)
+    }
+
+    fun comeAlive(): CellState {
+        return LIVE
+    }
+
+    fun die(): CellState {
+        return DEAD
     }
 }
