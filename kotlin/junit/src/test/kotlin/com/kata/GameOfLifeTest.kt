@@ -9,36 +9,48 @@ enum class CellState {
     LIVE, DEAD
 }
 
+class Cell(state: CellState) {
+    private var _state: CellState = state
+    val state: CellState
+        get() {
+            return _state
+        }
+
+    fun comeAlive(): Cell {
+        _state = LIVE
+        return this
+    }
+
+    fun die(): Cell {
+        _state = DEAD
+        return this
+    }
+}
+
 internal class GameOfLifeTest {
     @Test
     fun testCellState_Live() {
-        val cellState = LIVE
-        assertEquals(cellState, LIVE)
+        val cell = Cell(LIVE)
+        assertEquals(cell.state, LIVE)
     }
 
     @Test
     fun testCellState_Dead() {
-        val cellState = DEAD
-        assertEquals(cellState, DEAD)
+        val cell = Cell(DEAD)
+        assertEquals(cell.state, DEAD)
     }
 
     @Test
     fun testCellChangeState_LiveDead() {
-        val cellState = die()
-        assertEquals(cellState, DEAD)
+        val cell = Cell(LIVE)
+        cell.die()
+        assertEquals(cell.state, DEAD)
     }
 
     @Test
     fun testCellChangeState_DeadLive() {
-        val cellState = comeAlive()
-        assertEquals(cellState, LIVE)
-    }
-
-    fun comeAlive(): CellState {
-        return LIVE
-    }
-
-    fun die(): CellState {
-        return DEAD
+        val cell = Cell(DEAD)
+        cell.comeAlive()
+        assertEquals(cell.state, LIVE)
     }
 }
